@@ -19,13 +19,19 @@ HTTP decelerator conveniently allows you to simulate a slow connection without c
 
 ## Installation
 
-Install the package using Bower:
+First install the package using Bower:
 
 ```sh
 $ bower install angular-http-decelerator
 ```
 
-and add the module to your AngularJS application:
+then include the file in your scripts:
+
+```html
+<script src="/path-to-bower/angular-http-decelerator/dist/angular-http-decelerator.js"></script>
+```
+
+and finally add the module to your AngularJS application:
 
 ```javascript
 angular.module('yourApp', ['httpDecelerator'])
@@ -74,6 +80,10 @@ $httpProvider.interceptors.push(['httpDecelerator', function(httpDecelerator){
 ```
 
 ## History
+
+### v2.0.0
+
+- Refactor distribution names for better compatibility with official angular packages
 
 ### v1.1.0
 
