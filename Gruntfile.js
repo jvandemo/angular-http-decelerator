@@ -14,7 +14,7 @@ module.exports = function (grunt) {
                     'src/httpDecelerator/services/**/*.js',
                     'src/httpDecelerator/httpDecelerator.suffix'
                 ],
-                dest: 'dist/http-decelerator.js'
+                dest: 'dist/angular-http-decelerator.js'
             }
         },
         uglify: {
@@ -23,7 +23,7 @@ module.exports = function (grunt) {
             },
             library: {
                 files: {
-                    'dist/http-decelerator.min.js': ['<%= concat.library.dest %>']
+                    'dist/angular-http-decelerator.min.js': ['<%= concat.library.dest %>']
                 }
             }
         },
