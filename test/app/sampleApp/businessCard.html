@@ -1,0 +1,12 @@
+
+<section class="businessCard">
+  <div class="photo">
+    <!--<img src="http://thecatapi.com/api/images/get?format=src" alt="kitten"/>-->
+    <img src="http://edgecats.net?rnd={{person.postalCode}}" alt="https://github.com/flores/moarcats"/>
+  </div>
+  <p class="name">{{person.firstName}} {{person.lastName}}</p>
+  <p class="email">{{person.email}}</p>
+  <p class="phone">{{person.phone | phoneNumber}}</p>
+  <p class="address1">{{person.address1}}</p>
+  <p class="postalCode">{{person.postalCode}}</p>
+</section>

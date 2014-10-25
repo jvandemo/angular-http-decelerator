@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Sample Application with The WatchWatcher</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <link rel="stylesheet" href="sampleApp/sampleApp.css" />
+</head>
+<body ng-app="sampleApp" ng-controller="MainController">
+
+  <nav></nav>
+
+  <div class="content">
+
+    <h1>Sample Rolodex App</h1>
+
+    <form name="userForm" ng-submit="saveCurrentUser()">
+      <label for="FirstName">First Name</label>
+      <input  id="FirstName" name="FirstName" ng-model="user.firstName" required>
+
+      <label for="LastName">Last Name</label>
+      <input  id="LastName" name="LastName" ng-model="user.lastName" required>
+
+      <label for="Email">Email Address</label>
+      <input  id="Email" name="Email" type="email" ng-model="user.email">
+
+      <label for="Phone">Phone Number</label>
+      <input  id="Phone" name="Phone" ng-model="user.phone"
+              required>
+
+      <label for="Address1">Street Address</label>
+      <input  id="Address1" name="Address1" ng-model="user.address1" required>
+
+      <label for="PostalCode">Zip Code</label>
+      <input  id="PostalCode" name="PostalCode" ng-model="user.postalCode"
+              ng-minlength="5" ng-maxlength="5" required>
+
+      <br>
+
+      <input type="submit" value="Add to Rolodex" ng-disabled="userForm.$invalid" />
+      <br>
+      <a class="link" href="javascript:void(0);" ng-click="addFake()">Add Fake Card</a>
+
+    </form>
+
+    <div class="rolodex">
+      <business-card ng-repeat="person in rolodex" person="person"></business-card>
+    </div>
+
+  </div>
+
+
+  <!-- 3rd Party -->
+  <script src="../../bower_components/angular/angular.js"></script>
+
+  <!-- Library under test -->
+  <script src="../../dist/angular-http-decelerator.js"></script>
+
+  <!-- Sample App -->
+  <script>
+    sampleApple = angular.module('sampleApp', [ 'httpDecelerator' ]);
+    sampleApple.config([ '$httpProvider', function ($httpProvider) {
+      $httpProvider.interceptors.push(['httpDecelerator', function(httpDecelerator){
+        return httpDecelerator(1500, 'ckan');
+      }]);
+    }]);
+  </script>
+  <script src="sampleApp/main.controller.js"></script>
+  <script src="sampleApp/businessCard.directive.js"></script>
+  <script src="sampleApp/phoneNumber.filter.js"></script>
+  <script src="sampleApp/introText.attribute.js"></script>
+
+</body>
+</html>
