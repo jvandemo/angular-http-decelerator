@@ -3,9 +3,20 @@ angular.module('httpDecelerator.services')
 
         // Default options
         var options = {
-            deceleration: 1000
+            deceleration: 1000,
+            route: '' // A filter. Only routes which contain this string will be decelerated
         };
         self = this;
+
+        // Return true if the url is one of the ones we're supposed to decelerate
+        skipDeceleration = function (config) {
+          if(!config || !config.url) { return true; }
+          if(config.url.indexOf(options.route) === -1) {
+            console.log('skipDeceleration: ' + config.url + 'doesn\'t contain ' + options.route);
+            return true;
+          }
+          return false;
+        };
 
         /**
          * Provider convenience method to get or set default deceleration
@@ -13,12 +24,26 @@ angular.module('httpDecelerator.services')
          * @param deceleration
          * @returns {*}
          */
-        this.deceleration = function(deceleration){
+        this.deceleration = function(deceleration, route){
             if(angular.isDefined(deceleration)){
                 options.deceleration = deceleration;
                 return this;
             }
             return options.deceleration;
+        };
+
+        /**
+         * Provider convenience method to get or set default route filter
+         *
+         * @param route
+         * @returns {*}
+         */
+        this.route = function(route){
+          if(angular.isDefined(route)){
+            options.route = route;
+            return this;
+          }
+          return options.route;
         };
 
         this.decelerate = function(ms){
@@ -47,11 +72,13 @@ angular.module('httpDecelerator.services')
 
                 return {
                     'request': function(config) {
+                        if(skipDeceleration(config)) { return config; }
                         $log.log('HttpDecelerator request');
                         config.start = new Date();
                         return config;
                     },
                     'response': function(response) {
+                        if(skipDeceleration(response.config)) { return response; }
                         console.dir(response);
                         response.config.end = new Date();
                         response.config.time = response.config.end - response.config.start;
@@ -61,6 +88,7 @@ angular.module('httpDecelerator.services')
                         }, self.decelerate(response.config.time));
                     },
                     'responseError': function(rejection) {
+                        if(skipDeceleration(rejection.config)) { return rejection; }
                         $log.log('HttpDecelerator: decelerate response error by ' + self.deceleration() + 'ms');
                         console.dir(rejection);
                         return $timeout(function(){
@@ -71,8 +99,9 @@ angular.module('httpDecelerator.services')
 
             }
 
-            return function(deceleration){
+            return function(deceleration, route){
                 self.deceleration(deceleration);
+                self.route(route);
                 return new HttpDeceleratorInterceptor();
             };
 

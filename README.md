@@ -79,6 +79,16 @@ $httpProvider.interceptors.push(['httpDecelerator', function(httpDecelerator){
 }]);
 ```
 
+Optionally, you can include a filter to only decelerate certain routes:
+
+```javascript
+$httpProvider.interceptors.push(['httpDecelerator', function(httpDecelerator){
+    return httpDecelerator(1000, 'api/users'); // This will only decelerate routes which contain the string 'api/users'
+}]);
+```
+
+
+
 ## History
 
 ### v2.0.0
