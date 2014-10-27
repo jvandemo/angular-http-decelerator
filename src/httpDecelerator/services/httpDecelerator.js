@@ -6,7 +6,7 @@ angular.module('httpDecelerator.services')
             deceleration: 1000,
             route: '' // A filter. Only routes which match this string will be decelerated
         };
-        self = this;
+        var self = this;
 
         // Return true if the url is one of the ones we're supposed to decelerate
         skipDeceleration = function (config) {
