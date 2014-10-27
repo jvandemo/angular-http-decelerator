@@ -83,9 +83,11 @@ Optionally, you can include a filter to only decelerate certain routes:
 
 ```javascript
 $httpProvider.interceptors.push(['httpDecelerator', function(httpDecelerator){
-    return httpDecelerator(1000, 'api/users'); // This will only decelerate routes which contain the string 'api/users'
+    return httpDecelerator(1000, 'api/users'); // This will only decelerate routes which match the string 'api/users'
 }]);
 ```
+
+This parameter is matched using [`String.prototype.search`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/search), so you can use a string, number or regular expression.
 
 
 

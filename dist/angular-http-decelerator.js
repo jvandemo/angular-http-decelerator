@@ -23,15 +23,15 @@ angular.module('httpDecelerator.services')
         // Default options
         var options = {
             deceleration: 1000,
-            route: '' // A filter. Only routes which contain this string will be decelerated
+            route: '' // A filter. Only routes which match this string will be decelerated
         };
         self = this;
 
         // Return true if the url is one of the ones we're supposed to decelerate
         skipDeceleration = function (config) {
           if(!config || !config.url) { return true; }
-          if(config.url.indexOf(options.route) === -1) {
-            console.log('skipDeceleration: ' + config.url + 'doesn\'t contain ' + options.route);
+          if(config.url.search(options.route) === -1) {
+            console.log('skipDeceleration: ' + config.url + ' doesn\'t contain ' + options.route);
             return true;
           }
           return false;
