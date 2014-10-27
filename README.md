@@ -93,6 +93,10 @@ This parameter is matched using [`String.prototype.search`](https://developer.mo
 
 ## History
 
+### v2.1.0
+
+- Added url filtering
+
 ### v2.0.0
 
 - Refactor distribution names for better compatibility with official angular packages
