@@ -89,8 +89,6 @@ $httpProvider.interceptors.push(['httpDecelerator', function(httpDecelerator){
 
 This parameter is matched using [`String.prototype.search`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/search), so you can use a string, number or regular expression.
 
-
-
 ## History
 
 ### v2.1.0
